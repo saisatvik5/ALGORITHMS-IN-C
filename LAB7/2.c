@@ -11,13 +11,13 @@ struct node
 int
 countIt (struct node *node)
 {
-  if (node == NULL && node->data != -1 && node->data != NULL)
+  if (node == NULL )
     return 0;
-  else if (1) {
+  else if (node->data != -1 && node->data != NULL) {
     //all present
-    printf("Testing vala %d has nodes \n\n",node->data);
+    //printf("Testing vala %d has nodes \n\n",node->data);
     if ((node->left != NULL && node->right != NULL) || (node->left != -1 && node->right != -1)) {
-      printf("%d has: %d nodes \n",node->data,2);
+      printf("%d has: %d nodes those aer %d and %d\n",node->data,2,node->left->data,node->right->data);
       //return 2;
     }
     //all null
@@ -61,7 +61,7 @@ main ()
   root->right = newNode (3);
   root->right->right = newNode (7);
   root->right->left = newNode (6);
-  root->right->left->right = newNode (-1);
+  root->right->left->right = newNode (1);
 
   printf ("Leaf count of the tree is %d", countIt (root));
   return 0;
