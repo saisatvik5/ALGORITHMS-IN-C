@@ -11,33 +11,44 @@ struct node
 int
 countIt (struct node *node)
 {
+  printf("Testing vala %d has nodes \n\n",node->data);
   if (node == NULL )
     return 0;
-  else if (node->data != -1 && node->data != NULL) {
+  
+  else{
+    if (node->data != -1) {
+      printf("Andar bhi aaya hai \n");
+    
     //all present
-    //printf("Testing vala %d has nodes \n\n",node->data);
-    if ((node->left != NULL && node->right != NULL) || (node->left != -1 && node->right != -1)) {
+    if ((node->left != NULL && node->right != NULL) && (node->left->data != -1 && node->right->data != -1)) {
       printf("%d has: %d nodes those aer %d and %d\n",node->data,2,node->left->data,node->right->data);
-      //return 2;
+      countIt(node->left) + countIt (node->right);
+      //return 1;
     }
+
     //all null
-    else if ((node->left == NULL && node->right == NULL) || (node->left == -1 && node->right == -1)){
+    else if ((node->left == NULL && node->right == NULL)){
       printf("%d has: %d nodes \n",node->data,0);
-      //return 2;
+      //return 1;
+    }
+
+    //ek null
+    else if ((node->left != NULL && node->right == NULL) && (node->left->data != -1)){
+      printf("%d has: %d nodes \n",node->data,1);
+      countIt (node->left);
+      //return 1;
     }
     //ek null
-    else if ((node->left != NULL && node->right == NULL) || (node->left != -1 && node->right == -1)){
+    else if ((node->left == NULL && node->right != NULL) && (node->right->data != -1)){
       printf("%d has: %d nodes \n",node->data,1);
-      //return 2;
-    }
-    
-    else if ((node->left == NULL && node->right != NULL) || (node->left == -1 && node->right != -1)){
-      printf("%d has: %d nodes \n",node->data,1);
+      countIt (node->right);
       //return 1;
     }
   }
+  printf("----------------------------------\n");
   
-  return countIt (node->left) + countIt (node->right);
+    return countIt (node->left) + countIt (node->right);
+  }
 }
 
 struct node *
@@ -51,6 +62,16 @@ newNode (int data)
   return (node);
 }
 
+int countChildren(struct node *node) {
+  int leftCount =  node->left == NULL ? 0 : (countChildren(node->left) + 1);
+  int rightCount = node->right == NULL ? 0 : (countChildren(node->right) + 1);
+
+  int totalChildren = (leftCount ? 1:0) + (rightCount ? 1:0);
+
+  printf("%d has %d number of child nodes\n",node->data ,totalChildren);
+  return totalChildren;
+}
+
 int
 main ()
 {
@@ -62,7 +83,6 @@ main ()
   root->right->right = newNode (7);
   root->right->left = newNode (6);
   root->right->left->right = newNode (1);
-
-  printf ("Leaf count of the tree is %d", countIt (root));
+  countChildren(root);
   return 0;
 }
