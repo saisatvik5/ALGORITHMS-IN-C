@@ -63,8 +63,14 @@ newNode (int data)
 }
 
 int countChildren(struct node *node) {
-  int leftCount =  node->left == NULL ? 0 : (countChildren(node->left) + 1);
-  int rightCount = node->right == NULL ? 0 : (countChildren(node->right) + 1);
+  int leftCount = 0;
+  int rightCount = 0;
+  if(node->left != NULL) {
+    leftCount =  node->left->data == -1 ? 0 : (countChildren(node->left) + 1);
+  }
+  if(node->right != NULL) {
+    rightCount = node->right->data == -1 ? 0 : (countChildren(node->right) + 1);
+  }
 
   int totalChildren = (leftCount ? 1:0) + (rightCount ? 1:0);
 
@@ -82,7 +88,9 @@ main ()
   root->right = newNode (3);
   root->right->right = newNode (7);
   root->right->left = newNode (6);
-  root->right->left->right = newNode (1);
+  root->right->left->right = newNode (-1);
   countChildren(root);
   return 0;
 }
+
+
