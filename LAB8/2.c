@@ -5,6 +5,12 @@
 int catchValues[20] = {0};
 int pos = 0;
 
+
+void printIt(int* arr, int n) {
+  for (int c = 0; c < n; c++)
+    printf("%d ", arr[c]);
+}
+
 void removeDuplicates(int arr[], int n) {
   int c = 0, d = 0, count = 0;
   int b[20] = {0};
@@ -35,11 +41,6 @@ void subsetSums(int arr[], int l, int r, int sum) {
   }
   subsetSums(arr, l + 1, r, sum + arr[l]);
   subsetSums(arr, l + 1, r, sum);
-}
-
-void printIt(int* arr, int n) {
-  for (int c = 0; c < n; c++)
-    printf("%d ", arr[c]);
 }
 
 int main() {
