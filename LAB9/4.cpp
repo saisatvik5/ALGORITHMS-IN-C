@@ -53,11 +53,9 @@ bool Graph::isCyclic()
 		visited[i] = false; 
 		recStack[i] = false; 
 	} 
-
 	for(int i = 0; i < V; i++) 
 		if (isCyclicUtil(i, visited, recStack)) 
 			return true; 
-
 	return false; 
 } 
 
